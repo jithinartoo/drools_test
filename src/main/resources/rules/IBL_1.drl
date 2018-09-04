@@ -1,0 +1,333 @@
+//created on: 3 Sep, 2018
+package com.artoo.rules
+
+import com.artoo.rules.model.ApplicationView;
+import com.artoo.rules.model.Score;
+import com.artoo.rules.util.Out;
+import com.artoo.rules.util.Constants;
+
+global Out out;
+global Score score;
+
+
+rule "IBL_1: Own House available for pledging - Available and not pledged"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_AVAIL_NOT_PLEDGED)
+    then
+        score.setScore(10, 12f);
+        
+end
+
+rule "IBL_1: Own House available for pledging - Own Vacant Land available "
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_OWN_VACCANT_LAND_AVAIL)
+    then
+        score.setScore(9, 12f);
+        
+end
+
+rule "IBL_1: Own House available for pledging - Own house , pledged, Repaid promptly"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_OWN_HOUS_PLEDGED_REPAID_PROMPT)
+    then
+        score.setScore(8, 12f);
+        
+end
+
+rule "IBL_1: Own House available for pledging - Own house , pledged, Repaid occasionaly"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_OWN_HOUS_PLEDGED_REPAID_OCCAS)
+    then
+        score.setScore(7, 12f);
+        
+end
+
+rule "IBL_1: Own House available for pledging - Staying in family House, title deed not pledged"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_STAYING_IN_FAMILY_HOUS_DEED_NOT_PLEDGED)
+    then
+        score.setScore(6, 12f);
+        
+end
+
+rule "IBL_1: Own House available for pledging - Staying in family House, title deed pledged"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_STAYING_IN_FAMILY_HOUS_DEED_PLEDGED)
+    then
+        score.setScore(5, 12f);
+        
+end
+
+rule "IBL_1: Own House available for pledging - No repayment"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_NO_REPAYMENY)
+    then
+        score.setScore(4, 12f);
+        
+end
+
+rule "IBL_1: Own House available for pledging - Staying in rental, family share available"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_STAYING_IN_RENTAL_FAMILY_SHARE_AVAIL)
+    then
+        score.setScore(3, 12f);
+        
+end
+
+rule "IBL_1: Vintage with esaf very long"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_VERY_LONG)
+    then
+        score.setScore(10, 10f);
+        
+end
+
+rule "IBL_1: Vintage with esaf long"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_LONG)
+    then
+        score.setScore(8, 10f);
+        
+end
+
+rule "IBL_1: Vintage with esaf medium"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_MEDIUM)
+    then
+        score.setScore(6, 10f);
+        
+end
+
+rule "IBL_1: Vintage with esaf short"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_SHORT)
+    then
+        score.setScore(4, 10f);
+        
+end
+
+rule "IBL_1: Self employed"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SELF_EMPLOYED)
+    then
+        score.setScore(6, 5f);
+        out.p("IBL_1");
+        
+end
+
+rule "IBL_1: Salaried"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED)
+    then
+        score.setScore(10, 5f);
+        out.p("IBL_1");
+        
+end
+
+rule "IBL_1: Salaried applicant stays in an address for more than 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_present_home_address_years == Constants.ADDRESS_YEARS_LONG)
+    then
+        score.setScore(10, 5f);
+        
+end
+
+rule "IBL_1: Salaried applicant stays in an address for 3 to 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_present_home_address_years == Constants.ADDRESS_YEARS_MEDIUM)
+    then
+        score.setScore(8, 5f);
+        
+end
+
+rule "IBL_1: Salaried applicant stays in an address for 1 to 2 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_present_home_address_years == Constants.ADDRESS_YEARS_SHORT)
+    then
+        score.setScore(4, 5f);
+        
+end
+
+rule "IBL_1: Salaried applicant stays in an address for less than 1 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_present_home_address_years == Constants.ADDRESS_YEARS_VERY_SHORT)
+    then
+        score.setScore(2, 5f);
+        
+end
+
+rule "IBL_1: Salaried applicant work experience is more than 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience > 5)
+    then
+        score.setScore(10, 5);
+        
+end
+
+rule "IBL_1: Salaried applicant work experience is between 3 to 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience > 3, person_applicant_years_of_experience <= 5)
+    then
+        score.setScore(8, 5f);
+        
+end
+
+rule "IBL_1: Salaried applicant work experience is between 2 to 3 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience > 2, person_applicant_years_of_experience <= 3)
+    then
+        score.setScore(6, 5f);
+        
+end
+
+rule "IBL_1: Salaried applicant work experience is between 1 to 2 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience > 1, person_applicant_years_of_experience <= 2)
+    then
+        score.setScore(4, 5f);
+        
+end
+
+rule "IBL_1: Salaried applicant work experience is less than 1 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience <= 1)
+    then
+        score.setScore(2, 5f);
+        
+end
+
+rule "IBL_1: Age of building less than 1 year/New"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age < 1)
+    then
+        score.setScore(10, 5f);
+        
+end
+
+rule "IBL_1: Age of building between 1 to 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age >= 1, collateral_asset_age < 5)
+    then
+        score.setScore(8, 5f);
+        
+end
+
+rule "IBL_1: Age of building between 5 to 10 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age >= 5, collateral_asset_age < 10)
+    then
+        score.setScore(6, 5f);
+        
+end
+
+rule "IBL_1: Age of building between 10 to 15 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age >= 10, collateral_asset_age < 15)
+    then
+        score.setScore(4, 5f);
+        
+end
+
+rule "IBL_1: Age of building more than 15 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age > 15)
+    then
+        score.setScore(2, 5f);
+        
+end
+
+rule "IBL_1: Residential type of property"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1 &&
+        	(asset_status == Constants.PROPERTY_TYPE_RESIDENTIAL_PROP_SELF_OCCUPIED || 
+        	asset_status == Constants.PROPERTY_TYPE_RESIDENTIAL_PROP_RENTED ||
+        	asset_status == Constants.PROPERTY_TYPE_VACCANT_PLOT ||
+        	asset_status == Constants.PROPERTY_TYPE_VILLAGE_PANCHAYAT_APPR_RES_PROP_SO ||
+        	asset_status == Constants.PROPERTY_TYPE_VILLAGE_PANCHAYAT_APPR_RES_PROP_RENTED))
+    then
+        score.setScore(10, 10f);
+        
+end
+
+rule "IBL_1: Commercial type of property"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_IBL_1 && 
+        	(asset_status == Constants.PROPERTY_TYPE_COMMERCIAL_PROP_SELF_OCCUPIED ||
+        	asset_status == Constants.PROPERTY_TYPE_COMMERCIAL_PROP_RENTED))
+    then
+        score.setScore(8, 10f);
+        
+end
+

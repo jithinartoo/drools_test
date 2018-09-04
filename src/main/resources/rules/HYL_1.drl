@@ -1,0 +1,253 @@
+//created on: 3 Sep, 2018
+package com.artoo.rules
+
+import com.artoo.rules.model.ApplicationView;
+import com.artoo.rules.model.Score;
+import com.artoo.rules.util.Out;
+import com.artoo.rules.util.Constants;
+
+global Out out;
+global Score score;
+
+
+rule "HYL_1: Own House available for pledging - Available and not pledged"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_AVAIL_NOT_PLEDGED)
+    then
+        score.setScore(10, 15f);
+        
+end
+
+rule "HYL_1: Own House available for pledging - Own Vacant Land available "
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_OWN_VACCANT_LAND_AVAIL)
+    then
+        score.setScore(9, 15f);
+        
+end
+
+rule "HYL_1: Own House available for pledging - Own house , pledged, Repaid promptly"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_OWN_HOUS_PLEDGED_REPAID_PROMPT)
+    then
+        score.setScore(8, 15f);
+        
+end
+
+rule "HYL_1: Own House available for pledging - Own house , pledged, Repaid occasionaly"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_OWN_HOUS_PLEDGED_REPAID_OCCAS)
+    then
+        score.setScore(7, 15f);
+        
+end
+
+rule "HYL_1: Own House available for pledging - Staying in family House, title deed not pledged"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_STAYING_IN_FAMILY_HOUS_DEED_NOT_PLEDGED)
+    then
+        score.setScore(6, 15f);
+        
+end
+
+rule "HYL_1: Own House available for pledging - Staying in family House, title deed pledged"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_STAYING_IN_FAMILY_HOUS_DEED_PLEDGED)
+    then
+        score.setScore(5, 15f);
+        
+end
+
+rule "HYL_1: Own House available for pledging - No repayment"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_NO_REPAYMENY)
+    then
+        score.setScore(4, 15f);
+        
+end
+
+rule "HYL_1: Own House available for pledging - Staying in rental, family share available"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_STAYING_IN_RENTAL_FAMILY_SHARE_AVAIL)
+    then
+        score.setScore(3, 15f);
+        
+end
+
+rule "HYL_1: Vintage with esaf very long"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_VERY_LONG)
+    then
+        score.setScore(10, 20f);
+        
+end
+
+rule "HYL_1: Vintage with esaf long"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_LONG)
+    then
+        score.setScore(8, 20f);
+        
+end
+
+rule "HYL_1: Vintage with esaf medium"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_MEDIUM)
+    then
+        score.setScore(6, 20f);
+        
+end
+
+rule "HYL_1: Vintage with esaf short"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_SHORT)
+    then
+        score.setScore(4, 20f);
+        
+end
+
+rule "HYL_1: Self employed"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SELF_EMPLOYED)
+    then
+        score.setScore(6, 10f);
+        out.p("HYL_1");
+        
+end
+
+rule "HYL_1: Salaried"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED)
+    then
+        score.setScore(10, 10f);
+        out.p("HYL_1");
+        
+end
+
+rule "HYL_1: Salaried applicant stays in an address for more than 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_present_home_address_years == Constants.ADDRESS_YEARS_LONG)
+    then
+        score.setScore(10, 10f);
+        
+end
+
+rule "HYL_1: Salaried applicant stays in an address for 3 to 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_present_home_address_years == Constants.ADDRESS_YEARS_MEDIUM)
+    then
+        score.setScore(8, 10f);
+        
+end
+
+rule "HYL_1: Salaried applicant stays in an address for 1 to 2 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_present_home_address_years == Constants.ADDRESS_YEARS_SHORT)
+    then
+        score.setScore(4, 10f);
+        
+end
+
+rule "HYL_1: Salaried applicant stays in an address for less than 1 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_present_home_address_years == Constants.ADDRESS_YEARS_VERY_SHORT)
+    then
+        score.setScore(2, 10f);
+        
+end
+
+rule "HYL_1: Salaried applicant work experience is more than 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience > 5)
+    then
+        score.setScore(10, 5);
+        
+end
+
+rule "HYL_1: Salaried applicant work experience is between 3 to 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience > 3, person_applicant_years_of_experience <= 5)
+    then
+        score.setScore(8, 5f);
+        
+end
+
+rule "HYL_1: Salaried applicant work experience is between 2 to 3 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience > 2, person_applicant_years_of_experience <= 3)
+    then
+        score.setScore(6, 5f);
+        
+end
+
+rule "HYL_1: Salaried applicant work experience is between 1 to 2 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience > 1, person_applicant_years_of_experience <= 2)
+    then
+        score.setScore(4, 5f);
+        
+end
+
+rule "HYL_1: Salaried applicant work experience is less than 1 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_HYL_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED, 
+        	person_applicant_years_of_experience <= 1)
+    then
+        score.setScore(2, 5f);
+        
+end
+

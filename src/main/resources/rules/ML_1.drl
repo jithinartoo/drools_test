@@ -1,0 +1,338 @@
+//created on: 3 Sep, 2018
+package com.artoo.rules
+
+import com.artoo.rules.model.ApplicationView;
+import com.artoo.rules.model.Score;
+import com.artoo.rules.util.Out;
+import com.artoo.rules.util.Constants;
+
+global Out out;
+global Score score;
+
+
+rule "ML_1: Own House available for pledging - Available and not pledged"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_AVAIL_NOT_PLEDGED)
+    then
+        score.setScore(10, 12f);
+        
+end
+
+rule "ML_1: Own House available for pledging - Own Vacant Land available "
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_OWN_VACCANT_LAND_AVAIL)
+    then
+        score.setScore(9, 12f);
+        
+end
+
+rule "ML_1: Own House available for pledging - Own house , pledged, Repaid promptly"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_OWN_HOUS_PLEDGED_REPAID_PROMPT)
+    then
+        score.setScore(8, 12f);
+        
+end
+
+rule "ML_1: Own House available for pledging - Own house , pledged, Repaid occasionaly"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_OWN_HOUS_PLEDGED_REPAID_OCCAS)
+    then
+        score.setScore(7, 12f);
+        
+end
+
+rule "ML_1: Own House available for pledging - Staying in family House, title deed not pledged"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_STAYING_IN_FAMILY_HOUS_DEED_NOT_PLEDGED)
+    then
+        score.setScore(6, 12f);
+        
+end
+
+rule "ML_1: Own House available for pledging - Staying in family House, title deed pledged"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_STAYING_IN_FAMILY_HOUS_DEED_PLEDGED)
+    then
+        score.setScore(5, 12f);
+        
+end
+
+rule "ML_1: Own House available for pledging - No repayment"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_NO_REPAYMENY)
+    then
+        score.setScore(4, 12f);
+        
+end
+
+rule "ML_1: Own House available for pledging - Staying in rental, family share available"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	house_available_for_pledging == Constants.HOUSE_PLEDGING_STAYING_IN_RENTAL_FAMILY_SHARE_AVAIL)
+    then
+        score.setScore(3, 12f);
+        
+end
+
+rule "ML_1: Vintage with esaf very long"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_VERY_LONG)
+    then
+        score.setScore(10, 10f);
+        
+end
+
+rule "ML_1: Vintage with esaf long"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_LONG)
+    then
+        score.setScore(8, 10f);
+        
+end
+
+rule "ML_1: Vintage with esaf medium"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_MEDIUM)
+    then
+        score.setScore(6, 10f);
+        
+end
+
+rule "ML_1: Vintage with esaf short"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	vintage_with_esaf == Constants.VINTAGE_ESAF_SHORT)
+    then
+        score.setScore(4, 10f);
+        
+end
+
+rule "ML_1: Business location is Pucca shop , own premises"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	business_location == Constants.BUSINESS_LOCATION_PUCCA_OWN)
+    then
+        score.setScore(10, 5f);
+        
+end
+
+rule "ML_1: Business location is Own house is the business premises"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	business_location == Constants.BUSINESS_LOCATION_OWN_HOUSE_IN_BUS_PREM)
+    then
+        score.setScore(8, 5f);
+        
+end
+
+rule "ML_1: Business location is Pucca shop, rented.  >4 years in the current location"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	business_location == Constants.BUSINESS_LOCATION_PUCCA_RENTED_MORE_THAN_4)
+    then
+        score.setScore(7, 5f);
+        
+end
+
+rule "ML_1: Business location is Pucca shop, rented.  <4 years in the current location and residence within 10 kms . "
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	business_location == Constants.BUSINESS_LOCATION_PUCCA_RENTED_LESS_THAN_4_WITHIN_10KM)
+    then
+        score.setScore(6, 5f);
+        
+end
+
+rule "ML_1: Business location is Pucca shop, rented.  <4 years in the current location and residence  greater than 10 kms . "
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	business_location == Constants.BUSINESS_LOCATION_PUCCA_RENTED_LESS_THAN_4_OUTSIDE_10KM)
+    then
+        score.setScore(5, 5f);
+        
+end
+
+rule "ML_1: Business location is Way side temporary set up"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	business_location == Constants.BUSINESS_LOCATION_TEMPORARY)
+    then
+        score.setScore(2, 5f);
+        
+end
+
+rule "ML_1: Self employed"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SELF_EMPLOYED)
+    then
+        score.setScore(6, 5f);
+        out.p("ML_1");
+        
+end
+
+rule "ML_1: Salaried"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SALARIED)
+    then
+        score.setScore(10, 5f);
+        out.p("ML_1");
+        
+end
+
+rule "ML_1: Age of building less than 1 year/New"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age < 1)
+    then
+        score.setScore(10, 5f);
+        
+end
+
+rule "ML_1: Age of building between 1 to 5 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age >= 1, collateral_asset_age < 5)
+    then
+        score.setScore(8, 5f);
+        
+end
+
+rule "ML_1: Age of building between 5 to 10 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age >= 5, collateral_asset_age < 10)
+    then
+        score.setScore(6, 5f);
+        
+end
+
+rule "ML_1: Age of building between 10 to 15 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age >= 10, collateral_asset_age < 15)
+    then
+        score.setScore(4, 5f);
+        
+end
+
+rule "ML_1: Age of building more than 15 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	collateral_asset_type == Constants.COLLATERAL_ASSET_BUILDING, 
+        	collateral_asset_age > 15)
+    then
+        score.setScore(2, 5f);
+        
+end
+
+rule "ML_1: Residential type of property"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1 &&
+        	(asset_status == Constants.PROPERTY_TYPE_RESIDENTIAL_PROP_SELF_OCCUPIED || 
+        	asset_status == Constants.PROPERTY_TYPE_RESIDENTIAL_PROP_RENTED ||
+        	asset_status == Constants.PROPERTY_TYPE_VACCANT_PLOT ||
+        	asset_status == Constants.PROPERTY_TYPE_VILLAGE_PANCHAYAT_APPR_RES_PROP_SO ||
+        	asset_status == Constants.PROPERTY_TYPE_VILLAGE_PANCHAYAT_APPR_RES_PROP_RENTED))
+    then
+        score.setScore(10, 10f);
+        
+end
+
+rule "ML_1: Commercial type of property"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1 && 
+        	(asset_status == Constants.PROPERTY_TYPE_COMMERCIAL_PROP_SELF_OCCUPIED ||
+        	asset_status == Constants.PROPERTY_TYPE_COMMERCIAL_PROP_RENTED))
+    then
+        score.setScore(8, 10f);
+        
+end
+
+rule "ML_1: Business age between 2 and  4 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SELF_EMPLOYED,
+        	business_age >= 2, business_age < 4)
+    then
+        score.setScore(4, 5f);
+        
+end
+
+rule "ML_1: Business age between 4 and  6 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SELF_EMPLOYED,
+        	business_age >= 4, business_age < 6)
+    then
+        score.setScore(6, 5f);
+        
+end
+
+rule "ML_1: Business age between 6 and  8 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SELF_EMPLOYED,
+        	business_age >= 4, business_age < 6)
+    then
+        score.setScore(8, 5f);
+        
+end
+
+rule "ML_1: Business age greater than 8 years"
+
+    when
+        $application : ApplicationView(loan_type == Constants.LOAN_TYPE_ML_1,
+        	person_applicant_occupation_code == Constants.OCCUPATION_SELF_EMPLOYED,
+        	business_age > 8)
+    then
+        score.setScore(10, 5f);
+        
+end
+
